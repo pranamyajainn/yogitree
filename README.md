@@ -1,6 +1,6 @@
-# Koko Maya Resort — Hotel Website
+# Yogi Tree Resort — Hotel Website
 
-A high-performance, accessible boutique hotel website for Koko Maya Resort, Morjim, North Goa.
+A high-performance, accessible boutique hotel website for Yogi Tree Resort, Morjim, North Goa.
 
 **Stack:** Astro 4 + Preact Islands · Fastify API · Vanilla CSS · PostgreSQL · Redis · eZee Booking Engine
 

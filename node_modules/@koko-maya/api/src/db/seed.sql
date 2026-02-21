@@ -5,7 +5,7 @@
 INSERT INTO property (id, name, slug, tagline, description, address, phone, email, lat, lng, ezee_property_id)
 VALUES (
   'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
-  'Koko Maya Resort',
+  'Yogi Tree Resort',
   'koko-maya-morjim',
   'Where the Sea Breeze Becomes Your Morning.',
   'A boutique beach resort steps from Morjim Beach, North Goa. Three thoughtfully designed room types — each with a private balcony — plus an open-air multi-cuisine restaurant, swimming pool, and curated concierge services.',
@@ -84,7 +84,7 @@ INSERT INTO offer (property_id, title, slug, summary, description, discount_type
   (
     'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
     'Member-only Discount — 5% Off', 'member-discount',
-    'Enjoy a flat 5% discount on all Koko Maya stays as a loyalty member.',
+    'Enjoy a flat 5% discount on all Yogi Tree stays as a loyalty member.',
     'Sign up as a member and unlock 5% off every time you book. Stack with other eligible offers for maximum savings.',
     'percent', 5, 'MEMBER5', '2026-01-01', true
   ),
@@ -98,7 +98,7 @@ INSERT INTO offer (property_id, title, slug, summary, description, discount_type
 
 -- ── TESTIMONIALS ──────────────────────────────────────────
 INSERT INTO testimonial (property_id, author_name, title, body, rating, sort_order) VALUES
-  ('a1b2c3d4-e5f6-7890-abcd-ef1234567890', 'Priya S.',         'Rooms that Feel Like Home',             'Stayed at Koko Maya and had an amazing experience! The hotel is beautiful, the rooms are clean and comfortable. The staff went above and beyond to ensure we were well taken care of.',          5, 1),
+  ('a1b2c3d4-e5f6-7890-abcd-ef1234567890', 'Priya S.',         'Rooms that Feel Like Home',             'Stayed at Yogi Tree and had an amazing experience! The hotel is beautiful, the rooms are clean and comfortable. The staff went above and beyond to ensure we were well taken care of.',          5, 1),
   ('a1b2c3d4-e5f6-7890-abcd-ef1234567890', 'Rahul M.',         'The Perfect Blend of Comfort & Care',   'The accommodations were truly delightful and exceeded expectations. Breakfast was exceptional and the staff's attentiveness created a welcoming atmosphere throughout our stay.',             5, 2),
   ('a1b2c3d4-e5f6-7890-abcd-ef1234567890', 'Ananya T.',        'Budget-friendly Comfort',               'The rooms are spacious, spotless, and budget-friendly, offering great value. The kitchen serves delicious meals with attentive service.',                                                   5, 3),
   ('a1b2c3d4-e5f6-7890-abcd-ef1234567890', 'Vikram & family',  'Special Care for Senior Guests',        'Set in a beautiful location. Staff is friendly and attentive. Breakfast offers a variety of options and the team is always ready to cater to special requests, especially senior citizens.', 5, 4),
@@ -115,11 +115,11 @@ INSERT INTO attraction (property_id, name, distance_m, sort_order) VALUES
 
 -- ── SEO META ──────────────────────────────────────────────
 INSERT INTO seo_meta (page_path, title, description) VALUES
-  ('/',            'Koko Maya Resort — Boutique Beach Resort in Morjim, Goa',         'Steps from Morjim Beach, enjoy sea-view rooms with balconies, open-air dining, a pool, and concierge services. Book direct for the best rate.'),
-  ('/rooms/',      'Rooms & Rates — Koko Maya Resort Morjim',                          'Explore 3 room types with private balconies and sea breezes at Koko Maya Resort, Morjim, North Goa.'),
-  ('/dining/',     'Curry, Wok & Waves Restaurant — Koko Maya Resort',                 'Open-air multi-cuisine dining with beach views. Indian and Chinese cuisine, buffet and à la carte, at Koko Maya Resort Morjim.'),
-  ('/offers/',     'Special Offers & Deals — Koko Maya Resort Morjim',                 'Exclusive offers and discount packages at Koko Maya Resort. Book direct and save up to 40%.'),
-  ('/gallery/',    'Photo Gallery — Koko Maya Resort Morjim Goa',                      'Browse photos of rooms, the pool, our restaurant, and the beautiful surroundings of Koko Maya Resort in Morjim, Goa.'),
-  ('/facilities/', 'Facilities & Amenities — Koko Maya Resort',                        'Swimming pool, open-air movie theatre, multi-cuisine restaurant, kids play area, concierge, and more at Koko Maya Resort.'),
-  ('/contact/',    'Location & Contact — Koko Maya Resort Morjim',                     'Find Koko Maya Resort in Morjim, North Goa. Get directions, contact details, and send an enquiry.'),
-  ('/faq/',        'Frequently Asked Questions — Koko Maya Resort',                    'Common questions about rooms, check-in times, facilities, dining, and booking at Koko Maya Resort Morjim.');
+  ('/',            'Yogi Tree Resort — Boutique Beach Resort in Morjim, Goa',         'Steps from Morjim Beach, enjoy sea-view rooms with balconies, open-air dining, a pool, and concierge services. Book direct for the best rate.'),
+  ('/rooms/',      'Rooms & Rates — Yogi Tree Resort Morjim',                          'Explore 3 room types with private balconies and sea breezes at Yogi Tree Resort, Morjim, North Goa.'),
+  ('/dining/',     'Curry, Wok & Waves Restaurant — Yogi Tree Resort',                 'Open-air multi-cuisine dining with beach views. Indian and Chinese cuisine, buffet and à la carte, at Yogi Tree Resort Morjim.'),
+  ('/offers/',     'Special Offers & Deals — Yogi Tree Resort Morjim',                 'Exclusive offers and discount packages at Yogi Tree Resort. Book direct and save up to 40%.'),
+  ('/gallery/',    'Photo Gallery — Yogi Tree Resort Morjim Goa',                      'Browse photos of rooms, the pool, our restaurant, and the beautiful surroundings of Yogi Tree Resort in Morjim, Goa.'),
+  ('/facilities/', 'Facilities & Amenities — Yogi Tree Resort',                        'Swimming pool, open-air movie theatre, multi-cuisine restaurant, kids play area, concierge, and more at Yogi Tree Resort.'),
+  ('/contact/',    'Location & Contact — Yogi Tree Resort Morjim',                     'Find Yogi Tree Resort in Morjim, North Goa. Get directions, contact details, and send an enquiry.'),
+  ('/faq/',        'Frequently Asked Questions — Yogi Tree Resort',                    'Common questions about rooms, check-in times, facilities, dining, and booking at Yogi Tree Resort Morjim.');
