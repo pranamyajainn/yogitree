@@ -1,0 +1,192 @@
+---
+// apps/web/src/pages/dining/index.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const timings = [
+  { meal: 'Breakfast', hours: '8:00 AM – 10:30 AM', desc: 'Start your day with a spread of fresh fruits, Goan specialties, and classic continental options.' },
+  { meal: 'Lunch',     hours: '1:00 PM – 3:30 PM',  desc: 'Indulge in vibrant multi-cuisine fare featuring local seafood and international staples.' },
+  { meal: 'Dinner',    hours: '7:30 PM – 10:30 PM', desc: 'Dine under the stars with our à la carte menu or curated theme buffets.' },
+];
+
+const features = [
+  { title: 'Open-Air Seating', desc: 'Enjoy the sea breeze and the sound of waves as you dine.' },
+  { title: 'Local Ingredients', desc: 'We source fresh seafood and produce from Morjim markets daily.' },
+  { title: 'Beach Views', desc: 'Located on the first floor with sweeping views of the Arabian Sea.' },
+  { title: 'Private Dining', desc: 'Perfect for romantic dinners or intimate family celebrations.' },
+];
+---
+
+<BaseLayout 
+  title="Dining — Curry, Wok & Waves | Koko Maya Resort" 
+  description="Savour multi-cuisine delights at our open-air restaurant with beach views in Morjim, North Goa."
+>
+  <!-- Hero Section -->
+  <section class="dining-hero">
+    <div class="dining-hero__bg" style="background-image: url('/images/dining/hero-dining.jpg')"></div>
+    <div class="dining-hero__overlay"></div>
+    <div class="container dining-hero__content">
+       <p class="eyebrow" style="color:var(--color-sand)">Ocean-View Dining</p>
+       <h1 class="hero-title" style="font-size: var(--text-4xl);">Curry, Wok & Waves</h1>
+    </div>
+  </section>
+
+  <!-- Intro Section -->
+  <section class="section section--sand p-dining-intro">
+    <div class="container dining-intro-inner">
+      <header class="section-header">
+        <h2 class="section-title">A Symphony of Flavours by the Sea</h2>
+        <hr class="divider divider--center" />
+        <p class="section-body">
+          At Koko Maya Resort, dining is more than just a meal — it's an experience. 
+          Our restaurant, "Curry, Wok & Waves," offers a curated menu that celebrates 
+          the rich culinary heritage of Goa alongside classic Indian and Chinese favorites.
+        </p>
+      </header>
+
+      <div class="dining-grid-layout">
+        <div class="dining-visual">
+          <img src="/images/dining/restaurant-view.jpg" alt="Restaurant interior" class="dining-visual__img" loading="lazy" />
+          <div class="dining-stat">
+            <span class="stat-num">40</span>
+            <span class="stat-label">Seats</span>
+          </div>
+        </div>
+        <div class="dining-info">
+          <h3 class="dining-sub-title">Where Taste Meets the Horizon</h3>
+          <p class="section-body">
+            Located on our first floor, the open-air design ensures you never lose touch with the sea breeze. 
+            Whether you're enjoying our breakfast buffet or a candle-lit à la carte dinner, the view of Morjim Beach 
+            provides the perfect backdrop.
+          </p>
+          <ul class="dining-features-list" role="list">
+            {features.map(f => (
+              <li class="d-feature">
+                <strong>{f.title}:</strong> {f.desc}
+              </li>
+            ))}
+          </ul>
+          <div class="dining-actions">
+            <a href="/dining/menu.pdf" class="btn btn--primary" target="_blank">Download Menu (PDF)</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timings Section -->
+  <section class="section section--ocean p-dining-timings">
+    <div class="container timings-inner">
+      <div class="section-header">
+        <p class="eyebrow" style="color:rgba(255,255,255,0.7)">Operating Hours</p>
+        <h2 class="section-title" style="color:white">Meal Timings</h2>
+      </div>
+
+      <div class="timings-grid">
+        {timings.map(t => (
+          <div class="timing-card">
+            <h3 class="timing-card__meal">{t.meal}</h3>
+            <span class="timing-card__hours">{t.hours}</span>
+            <p class="timing-card__desc">{t.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section section--sand p-dining-cta">
+    <div class="container text-center">
+      <h2 class="section-title">Planning a Special Event?</h2>
+      <p class="section-body" style="margin-inline:auto">
+        From birthdays to team lunches, Curry, Wok & Waves is the ideal venue for small gatherings. 
+        Contact our team to discuss customized menus and private arrangements.
+      </p>
+      <div style="margin-top:var(--space-8)">
+        <a href="/contact/" class="btn btn--outline btn--lg">Make an Enquiry</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .dining-hero {
+    position: relative;
+    height: 40vh;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    color: var(--color-white);
+    overflow: hidden;
+  }
+  .dining-hero__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
+  .dining-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5));
+  }
+  .dining-hero__content { position: relative; z-index: 2; }
+
+  .dining-grid-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+    margin-top: var(--space-12);
+    align-items: center;
+  }
+
+  .dining-visual { position: relative; }
+  .dining-visual__img {
+    width: 100%;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+  }
+  .dining-stat {
+    position: absolute;
+    bottom: var(--space-6);
+    left: var(--space-6);
+    background: var(--color-white);
+    padding: var(--space-4) var(--space-6);
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: var(--shadow-md);
+  }
+  .stat-num { font-size: var(--text-3xl); font-weight: var(--weight-bold); color: var(--color-ocean); }
+  .stat-label { font-size: var(--text-xs); color: var(--color-muted); text-transform: uppercase; }
+
+  .dining-info { display: flex; flex-direction: column; gap: var(--space-6); }
+  .dining-sub-title { font-size: var(--text-2xl); color: var(--color-charcoal); }
+  .dining-features-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: var(--space-4); }
+  .d-feature { font-size: var(--text-sm); color: var(--color-muted); border-left: 2px solid var(--color-sunset); padding-left: var(--space-4); }
+
+  .timings-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8);
+    margin-top: var(--space-12);
+  }
+  .timing-card {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: var(--space-8);
+    border-radius: var(--radius-xl);
+    text-align: center;
+    color: white;
+  }
+  .timing-card__meal { font-size: var(--text-xl); font-weight: var(--weight-bold); margin-bottom: var(--space-2); }
+  .timing-card__hours { display: block; font-size: var(--text-base); color: var(--color-sand); font-weight: var(--weight-semibold); margin-bottom: var(--space-4); }
+  .timing-card__desc { font-size: var(--text-sm); line-height: var(--leading-loose); opacity: 0.8; }
+
+  @media (max-width: 900px) {
+    .dining-grid-layout { grid-template-columns: 1fr; }
+    .timings-grid { grid-template-columns: 1fr; }
+  }
+  .text-center { text-align: center; }
+</style>

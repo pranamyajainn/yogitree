@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /book/confirm/
+
+Sitemap: https://www.yourdomain.com/sitemap.xml

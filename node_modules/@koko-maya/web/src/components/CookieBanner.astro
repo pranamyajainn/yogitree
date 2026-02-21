@@ -1,0 +1,85 @@
+---
+// CookieBanner.astro
+---
+
+<div class="cookie-banner" id="cookie-banner" role="alertdialog"
+     aria-modal="true" aria-labelledby="cookie-title" aria-describedby="cookie-desc"
+     hidden>
+  <div class="cookie-inner">
+    <svg class="cookie-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+    <div class="cookie-text">
+      <p class="cookie-title" id="cookie-title">We use cookies 🍪</p>
+      <p id="cookie-desc">
+        We use cookies to improve your experience, analyze site traffic, and support our booking functionality.
+        <a href="/privacy-policy/" class="cookie-link">Privacy Policy</a>
+      </p>
+    </div>
+    <div class="cookie-actions">
+      <button class="btn btn--outline" id="cookie-manage">Manage</button>
+      <button class="btn btn--primary" id="cookie-accept">Accept All</button>
+    </div>
+  </div>
+</div>
+
+<style>
+.cookie-banner {
+  position: fixed;
+  bottom: var(--space-4);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(calc(100vw - var(--space-8)), 900px);
+  z-index: 9999;
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--color-sand-dark);
+  padding: var(--space-5) var(--space-6);
+  animation: slide-up 0.4s var(--ease) both;
+}
+@keyframes slide-up { from { transform: translateX(-50%) translateY(20px); opacity: 0; } }
+.cookie-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+}
+.cookie-icon { color: var(--color-ocean); flex-shrink: 0; }
+.cookie-text { flex: 1; min-width: 200px; }
+.cookie-title { font-weight: var(--weight-semibold); margin-bottom: var(--space-1); }
+.cookie-text p:last-child { font-size: var(--text-sm); color: var(--color-muted); }
+.cookie-link { color: var(--color-ocean); }
+.cookie-actions { display: flex; gap: var(--space-3); flex-shrink: 0; }
+
+@media (max-width: 640px) {
+  .cookie-banner { bottom: calc(var(--sticky-cta-h) + var(--space-4)); }
+  .cookie-actions { width: 100%; }
+  .cookie-actions .btn { flex: 1; justify-content: center; }
+}
+</style>
+
+<script>
+  const banner = document.getElementById('cookie-banner') as HTMLElement;
+  const PREF_KEY = 'km_cookie_consent';
+
+  if (!localStorage.getItem(PREF_KEY)) {
+    banner.hidden = false;
+    document.getElementById('cookie-accept')?.focus();
+  }
+
+  document.getElementById('cookie-accept')?.addEventListener('click', () => {
+    localStorage.setItem(PREF_KEY, 'all');
+    banner.hidden = true;
+    // Signal consent to GTM
+    window.dataLayer = window.dataLayer ?? [];
+    window.dataLayer.push({ event: 'cookie_consent', consent: 'granted' });
+    // Consent Mode v2
+    if (typeof gtag !== 'undefined') {
+      gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'granted' });
+    }
+  });
+
+  document.getElementById('cookie-manage')?.addEventListener('click', () => {
+    localStorage.setItem(PREF_KEY, 'necessary');
+    banner.hidden = true;
+  });
+</script>

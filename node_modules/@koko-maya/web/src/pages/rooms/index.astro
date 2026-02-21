@@ -1,0 +1,274 @@
+---
+// apps/web/src/pages/rooms/index.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { rooms as roomTypes } from '../../data/rooms';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Koko Maya Resort Rooms",
+  "description": "Explore our stay options at Morjim Beach, Goa.",
+  "itemListElement": roomTypes.map((room, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": {
+      "@type": "HotelRoom",
+      "name": room.name,
+      "description": room.description,
+      "image": `https://www.yourdomain.com${room.image}`,
+      "occupancy": {
+        "@type": "QuantitativeValue",
+        "value": room.maxGuests
+      }
+    }
+  }))
+};
+---
+
+<BaseLayout 
+  title="Our Rooms — Comfort Meets Morjim Elegance" 
+  description="Discover our range of rooms, including Deluxe and Executive options with balconies, sea breezes, and pool views at Koko Maya Resort."
+  jsonLd={jsonLd}
+>
+  <!-- Hero Section -->
+  <section class="rooms-hero" aria-labelledby="rooms-hero-title">
+    <div class="rooms-hero__bg" style="background-image: url('/images/hero/rooms-banner.jpg')"></div>
+    <div class="rooms-hero__overlay"></div>
+    <div class="container rooms-hero__content">
+      <p class="eyebrow" style="color:var(--color-sand)">Choose Your View</p>
+      <h1 id="rooms-hero-title" class="hero-title" style="font-size: var(--text-4xl);">Our Rooms & Suites</h1>
+    </div>
+  </section>
+
+  <!-- Room list -->
+  <section class="section section--sand p-rooms">
+    <div class="container">
+      <div class="rooms-intro">
+        <h2 class="section-title">Thoughtfully Crafted For Your Comfort</h2>
+        <p class="section-body">
+          Whether you prefer a view of the pool or the gentle rustle of the palms from your private balcony, 
+          each of our rooms is designed to be your sanctuary in Morjim.
+        </p>
+      </div>
+
+      <div class="rooms-stack">
+        {roomTypes.map((room, index) => (
+          <article class:list={["room-strip card", { "room-strip--rev": index % 2 !== 0 }]}>
+            <div class="room-strip__img-wrap">
+              <img src={room.image} 
+                   alt={room.name} 
+                   class="room-strip__img" 
+                   loading="lazy" 
+                   decoding="async"
+                   srcset={`${room.image.replace('.jpg', '-640.jpg')} 640w, ${room.image} 1280w`}
+                   sizes="(max-width: 900px) 100vw, 50vw" />
+            </div>
+            <div class="room-strip__content">
+              <div class="room-strip__meta">
+                {room.highlights.map(h => <span class="badge">{h}</span>)}
+              </div>
+              <h3 class="room-strip__title">{room.name}</h3>
+              <p class="room-strip__desc">{room.description}</p>
+              
+              <div class="room-strip__specs">
+                <div class="room-spec-item">
+                  <span class="room-spec-val">{room.size} sq. ft.</span>
+                  <span class="room-spec-label">Internal Area</span>
+                </div>
+                <div class="room-spec-item">
+                  <span class="room-spec-val">Up to {room.maxGuests}</span>
+                  <span class="room-spec-label">Guests</span>
+                </div>
+                <div class="room-spec-item">
+                  <span class="room-spec-val">{room.bedType}</span>
+                  <span class="room-spec-label">Bed Type</span>
+                </div>
+              </div>
+
+              <div class="room-strip__footer">
+                <div class="room-strip__price">
+                  <span class="price-from">Starting from</span>
+                  <span class="price-val">₹{room.startingPrice.toLocaleString('en-IN')}</span>
+                  <span class="price-suffix">/ Night</span>
+                </div>
+                <div class="room-strip__actions">
+                  <a href={`/rooms/${room.slug}/`} class="btn btn--outline">Details</a>
+                  <a href={`/book/?room=${room.slug}`} class="btn btn--primary">Book Now</a>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .rooms-hero {
+    position: relative;
+    height: 40vh;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    color: var(--color-white);
+    overflow: hidden;
+  }
+  .rooms-hero__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
+  .rooms-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.6));
+  }
+  .rooms-hero__content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .rooms-intro {
+    text-align: center;
+    margin-bottom: var(--space-12);
+  }
+  .rooms-intro .section-body {
+    margin-inline: auto;
+  }
+
+  .rooms-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .room-strip {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    overflow: hidden;
+    transition: transform var(--dur-normal) var(--ease);
+  }
+  .room-strip--rev {
+    grid-template-columns: 1.2fr 1fr;
+  }
+  .room-strip--rev .room-strip__img-wrap {
+    order: 2;
+  }
+  .room-strip--rev .room-strip__content {
+    order: 1;
+  }
+
+  .room-strip__img-wrap {
+    position: relative;
+    min-height: 320px;
+  }
+  .room-strip__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .room-strip__content {
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    background: var(--color-white);
+  }
+
+  .room-strip__meta {
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  .room-strip__title {
+    font-size: var(--text-2xl);
+    color: var(--color-charcoal);
+  }
+
+  .room-strip__desc {
+    font-size: var(--text-base);
+    color: var(--color-muted);
+    line-height: var(--leading-loose);
+  }
+
+  .room-strip__specs {
+    display: flex;
+    gap: var(--space-8);
+    padding-block: var(--space-4);
+    border-block: 1px solid var(--color-sand-dark);
+  }
+  .room-spec-item {
+    display: flex;
+    flex-direction: column;
+  }
+  .room-spec-val {
+    font-weight: var(--weight-semibold);
+    font-size: var(--text-base);
+    color: var(--color-charcoal);
+  }
+  .room-spec-label {
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .room-strip__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: auto;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .room-strip__price {
+    display: flex;
+    flex-direction: column;
+  }
+  .price-from {
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+  .price-val {
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
+    color: var(--color-ocean);
+  }
+  .price-suffix {
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+
+  .room-strip__actions {
+    display: flex;
+    gap: var(--space-3);
+  }
+
+  @media (max-width: 900px) {
+    .room-strip {
+      grid-template-columns: 1fr;
+    }
+    .room-strip--rev {
+      grid-template-columns: 1fr;
+    }
+    .room-strip--rev .room-strip__img-wrap {
+      order: 0;
+    }
+    .room-strip--rev .room-strip__content {
+      order: 0;
+    }
+    .room-strip__img-wrap {
+      min-height: 240px;
+    }
+    .room-strip__content {
+      padding: var(--space-6);
+    }
+    .room-strip__specs {
+      gap: var(--space-4);
+    }
+  }
+</style>

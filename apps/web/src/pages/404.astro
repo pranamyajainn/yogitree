@@ -1,0 +1,28 @@
+---
+// 404.astro — Custom not found page
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Page Not Found — Koko Maya Resort" description="The page you're looking for doesn't exist.">
+  <div class="error-page section">
+    <div class="container error-inner">
+      <p class="eyebrow">404</p>
+      <h1 class="section-title">Page Not Found</h1>
+      <p class="section-body" style="max-width:50ch;margin-inline:auto;text-align:center">
+        The page you're looking for has drifted out to sea.<br/>
+        Let's get you back to shore.
+      </p>
+      <div style="display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap;margin-top:var(--space-8)">
+        <a href="/" class="btn btn--primary btn--lg">Back to Home</a>
+        <a href="/rooms/" class="btn btn--outline btn--lg">Browse Rooms</a>
+        <a href="/contact/" class="btn btn--outline btn--lg">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+.error-page { text-align: center; padding-block: calc(var(--nav-height) + var(--section-gap)) var(--section-gap); }
+.error-inner { max-width: 600px; margin-inline: auto; }
+.error-page .section-title { font-size: var(--text-4xl); }
+</style>

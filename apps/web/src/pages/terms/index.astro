@@ -1,0 +1,57 @@
+---
+// apps/web/src/pages/terms/index.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Terms & Conditions | Koko Maya Resort" description="Review the terms and conditions for booking and staying at Koko Maya Resort, Morjim.">
+  <section class="section section--sand p-policy">
+    <div class="container container--narrow">
+      <header class="policy-header">
+        <h1 class="section-title">Terms & Conditions</h1>
+        <p class="policy-date">Last Updated: February 21, 2026</p>
+      </header>
+
+      <div class="policy-prose prose">
+        <h2>1. Agreement to Terms</h2>
+        <p>By accesssing this website or making a reservation at Koko Maya Resort, you agree to be bound by these Terms and Conditions and all applicable laws and regulations in India.</p>
+
+        <h2>2. Reservation & Payment</h2>
+        <p>Reservations are subject to availability. To confirm a booking, we may require a valid credit card or advance payment as per the rate plan chosen. Rates are quoted in Indian Rupees (INR) and are subject to applicable taxes (GST).</p>
+
+        <h2>3. Check-in & Check-out</h2>
+        <ul>
+          <li><strong>Check-in:</strong> 2:00 PM</li>
+          <li><strong>Check-out:</strong> 11:00 AM</li>
+        </ul>
+        <p>A valid government photo ID is mandatory for all guests at the time of check-in.</p>
+
+        <h2>4. Cancellation & No-Show</h2>
+        <p>Cancellation policies vary by rate type. Standard bookings allow cancellation up to 48 hours prior to check-in for a full refund (minus any transaction fees). Non-refundable bookings will not be eligible for a refund.</p>
+
+        <h2>5. Property Rules</h2>
+        <ul>
+          <li>No smoking inside the guest rooms.</li>
+          <li>Pets are generally not allowed unless previously agreed upon for specific room types.</li>
+          <li>Quiet hours are observed from 11:00 PM to 7:00 AM to ensure comfort for all guests.</li>
+        </ul>
+
+        <h2>6. Limitation of Liability</h2>
+        <p>Koko Maya Resort is not responsible for any loss or damage to personal belongings. Guests are advised to use the in-room safes for valuables.</p>
+
+        <h2>7. Governing Law</h2>
+        <p>These terms are governed by the laws of India. Any disputes arising shall be subject to the exclusive jurisdiction of the courts in Goa.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .p-policy { padding-block: var(--space-24); }
+  .container--narrow { max-width: 800px; }
+  .policy-header { margin-bottom: var(--space-12); border-bottom: 1px solid var(--color-sand-dark); padding-bottom: var(--space-6); }
+  .policy-date { font-size: var(--text-sm); color: var(--color-muted); margin-top: var(--space-2); }
+  .prose h2 { margin-top: var(--space-10); margin-bottom: var(--space-4); font-size: var(--text-xl); color: var(--color-charcoal); }
+  .prose p, .prose li { margin-bottom: var(--space-4); color: var(--color-muted); line-height: var(--leading-loose); }
+  .prose ul { margin-bottom: var(--space-6); padding-left: var(--space-6); }
+  .prose strong { color: var(--color-charcoal); }
+</style>

@@ -1,0 +1,381 @@
+/* ─── global.css ─────────────────────────────────────────────
+   Import tokens, set document defaults, utility classes */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap');
+@import './tokens.css';
+
+/* ── RESET ───────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    color: var(--color-charcoal);
+    background: var(--color-sand);
+    -webkit-font-smoothing: antialiased;
+}
+
+img,
+video,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+a {
+    color: inherit;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-display);
+    line-height: var(--leading-tight);
+    font-weight: var(--weight-semibold);
+    color: var(--color-charcoal);
+}
+
+/* ── LAYOUT ────────────────────────────────────────────── */
+.container {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--container-pad);
+}
+
+.section {
+    padding-block: var(--section-gap);
+}
+
+.section--ocean {
+    background: var(--color-ocean);
+    color: var(--color-white);
+}
+
+.section--ocean h2,
+.section--ocean h3,
+.section--ocean h4,
+.section--ocean p {
+    color: var(--color-white);
+}
+
+.section--surface {
+    background: var(--color-surface);
+}
+
+.section--sand {
+    background: var(--color-sand);
+}
+
+/* ── TYPOGRAPHY UTILITIES ──────────────────────────────── */
+.eyebrow {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-sunset);
+}
+
+.section-title {
+    font-size: var(--text-4xl);
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-4);
+}
+
+.section-body {
+    font-size: var(--text-lg);
+    color: var(--color-muted);
+    max-width: 62ch;
+    line-height: var(--leading-loose);
+}
+
+/* ── BUTTONS ────────────────────────────────────────────── */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: background var(--dur-normal) var(--ease),
+        color var(--dur-normal) var(--ease),
+        border-color var(--dur-normal) var(--ease),
+        box-shadow var(--dur-normal) var(--ease),
+        transform var(--dur-fast) var(--ease);
+}
+
+.btn:focus-visible {
+    outline: 3px solid var(--color-sunset);
+    outline-offset: 3px;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+.btn--primary {
+    background: var(--color-ocean);
+    color: var(--color-white);
+}
+
+.btn--primary:hover {
+    background: var(--color-ocean-mid);
+    box-shadow: var(--shadow-md);
+}
+
+.btn--accent {
+    background: var(--color-sunset);
+    color: var(--color-white);
+}
+
+.btn--accent:hover {
+    background: var(--color-sunset-dark);
+    box-shadow: var(--shadow-md);
+}
+
+.btn--outline {
+    background: transparent;
+    border-color: var(--color-ocean);
+    color: var(--color-ocean);
+}
+
+.btn--outline:hover {
+    background: var(--color-ocean);
+    color: var(--color-white);
+}
+
+.btn--outline-white {
+    background: transparent;
+    border-color: var(--color-white);
+    color: var(--color-white);
+}
+
+.btn--outline-white:hover {
+    background: var(--color-white);
+    color: var(--color-ocean);
+}
+
+.btn--lg {
+    padding: var(--space-4) var(--space-8);
+    font-size: var(--text-base);
+}
+
+/* ── CARDS ──────────────────────────────────────────────── */
+.card {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--dur-normal) var(--ease),
+        transform var(--dur-normal) var(--ease);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+}
+
+/* ── FORM ELEMENTS ──────────────────────────────────────── */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.form-label {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-charcoal);
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+    padding: var(--space-3) var(--space-4);
+    border: 1.5px solid var(--color-sand-dark);
+    border-radius: var(--radius-md);
+    background: var(--color-white);
+    color: var(--color-charcoal);
+    font-size: var(--text-base);
+    transition: border-color var(--dur-fast) var(--ease),
+        box-shadow var(--dur-fast) var(--ease);
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+    outline: none;
+    border-color: var(--color-ocean);
+    box-shadow: 0 0 0 3px hsl(200 55% 26% / 0.14);
+}
+
+.form-input.error {
+    border-color: hsl(0 72% 50%);
+}
+
+.form-error {
+    font-size: var(--text-xs);
+    color: hsl(0 72% 50%);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* ── BADGE ──────────────────────────────────────────────── */
+.badge {
+    display: inline-block;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.06em;
+    background: var(--color-ocean-light);
+    color: var(--color-ocean);
+}
+
+.badge--sunset {
+    background: hsl(20 82% 54% / 0.12);
+    color: var(--color-sunset-dark);
+}
+
+.badge--leaf {
+    background: hsl(145 38% 34% / 0.12);
+    color: var(--color-leaf);
+}
+
+/* ── DIVIDER ────────────────────────────────────────────── */
+.divider {
+    width: 3rem;
+    height: 2px;
+    background: var(--color-sunset);
+    border: none;
+    margin-block: var(--space-4);
+}
+
+.divider--center {
+    margin-inline: auto;
+}
+
+/* ── GRID HELPERS ───────────────────────────────────────── */
+.grid-auto {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+    gap: var(--space-8);
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-8);
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8);
+}
+
+.grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+}
+
+@media (max-width: 900px) {
+    .grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ── ACCESSIBILITY ──────────────────────────────────────── */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+:focus-visible {
+    outline: 3px solid var(--color-sunset);
+    outline-offset: 2px;
+}
+
+/* ── SKIP LINK ──────────────────────────────────────────── */
+.skip-link {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    background: var(--color-ocean);
+    color: var(--color-white);
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-md);
+    font-weight: var(--weight-semibold);
+    z-index: 9999;
+    transition: top var(--dur-fast);
+    text-decoration: none;
+}
+
+.skip-link:focus {
+    top: 1rem;
+}
+
+/* ── SECTION HEADER (CENTRED) ───────────────────────────── */
+.section-header {
+    text-align: center;
+}
+
+.section-header p {
+    margin-inline: auto;
+}

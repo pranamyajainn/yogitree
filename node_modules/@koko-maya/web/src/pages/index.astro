@@ -1,0 +1,152 @@
+---
+// index.astro — Home page
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroCarousel from '../components/HeroCarousel.astro';
+import BookingBar from '../components/BookingBar.astro';
+import RoomsSection from '../components/RoomsSection.astro';
+import DiningSection from '../components/DiningSection.astro';
+import OffersSection from '../components/OffersSection.astro';
+import FacilitiesSection from '../components/FacilitiesSection.astro';
+import TestimonialsSection from '../components/TestimonialsSection.astro';
+import NewsletterAndContact from '../components/NewsletterAndContact.astro';
+
+const heroSlides = [
+  { image: '/images/hero/hero-1.jpg', alt: 'Morjim beach sunrise from resort' },
+  { image: '/images/hero/hero-2.jpg', alt: 'Resort swimming pool overlooking Morjim' },
+  { image: '/images/hero/hero-3.jpg', alt: 'Deluxe room balcony with sea view' },
+  { image: '/images/hero/hero-4.jpg', alt: 'Open-air restaurant at sunset' },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Hotel",
+  "name": "Koko Maya Resort",
+  "url": "https://www.yourdomain.com/",
+  "description": "Steps from Morjim Beach, Koko Maya Resort offers cosy rooms with balconies, sea-view open-air dining, a swimming pool, and thoughtful concierge services in North Goa.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "[Street Address]",
+    "addressLocality": "Morjim",
+    "addressRegion": "Goa",
+    "postalCode": "403512",
+    "addressCountry": "IN"
+  },
+  "telephone": "+91-73-5315-0111",
+  "email": "hello@yourcustomdomain.com",
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 15.623,
+    "longitude": 73.745
+  },
+  "image": [
+    "https://www.yourdomain.com/images/hero/hero-1.jpg",
+    "https://www.yourdomain.com/images/rooms/deluxe-balcony.jpg"
+  ],
+  "priceRange": "₹₹",
+  "checkinTime": "14:00",
+  "checkoutTime": "11:00",
+  "amenityFeature": [
+    { "@type": "LocationFeatureSpecification", "name": "Swimming Pool", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Restaurant", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "24-Hour Front Desk", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Concierge Service", "value": true }
+  ]
+};
+---
+
+<BaseLayout
+  title="Koko Maya Resort — Boutique Beach Resort in Morjim, Goa"
+  description="Steps from Morjim Beach, Koko Maya Resort offers sea-view rooms with balconies, open-air dining, a swimming pool, and concierge services in North Goa. Book direct for best rates."
+  jsonLd={jsonLd}
+>
+  <!-- 1. Hero -->
+  <HeroCarousel slides={heroSlides} />
+
+  <!-- 2. Booking Bar -->
+  <BookingBar />
+
+  <!-- 3. Rooms -->
+  <RoomsSection />
+
+  <!-- 4. Dining -->
+  <DiningSection />
+
+  <!-- 5. Offers -->
+  <OffersSection />
+
+  <!-- 6. Facilities -->
+  <FacilitiesSection />
+
+  <!-- 7. Concierge / Elevate section -->
+  <section class="section section--sand concierge-section" id="concierge" aria-labelledby="concierge-title">
+    <div class="container concierge-inner">
+      <div class="concierge-content">
+        <p class="eyebrow">Your Goa, Your Way</p>
+        <h2 class="section-title" id="concierge-title">Let Us Elevate Your Vacation in Goa</h2>
+        <hr class="divider" />
+        <p class="section-body">
+          A trip to Goa is never complete without sun-soaked beaches, exhilarating water adventures,
+          vibrant nightlife, and the allure of local markets. Our resort near Morjim Beach offers
+          thoughtfully designed services that let you uncover the essence of Goa with effortless ease.
+        </p>
+        <ul class="concierge-list" role="list">
+          <li>Dedicated on-call concierge service</li>
+          <li>Taxi bookings & city tour arrangements</li>
+          <li>Bike and car rentals for self-exploration</li>
+          <li>24-hour front desk assistance</li>
+          <li>Pilgrimage visit planning</li>
+        </ul>
+        <a href="/contact/" class="btn btn--primary btn--lg">Ask Our Concierge</a>
+      </div>
+      <div class="concierge-image">
+        <img src="/images/concierge-goa.jpg"
+             alt="Concierge at resort front desk assisting guests"
+             width="560" height="480"
+             loading="lazy"
+             style="border-radius:var(--radius-xl);box-shadow:var(--shadow-xl);width:100%;object-fit:cover;" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Testimonials -->
+  <TestimonialsSection />
+
+  <!-- 9. Attractions + Newsletter + Contact -->
+  <NewsletterAndContact />
+</BaseLayout>
+
+<style is:global>
+.concierge-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-16);
+  align-items: center;
+}
+@media (max-width: 768px) {
+  .concierge-inner { grid-template-columns: 1fr; }
+  .concierge-image { order: -1; }
+}
+.concierge-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+}
+.concierge-list li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+.concierge-list li::before {
+  content: '';
+  flex-shrink: 0;
+  width: 6px; height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--color-sunset);
+}
+</style>

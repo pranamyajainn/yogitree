@@ -1,0 +1,101 @@
+---
+// apps/web/src/pages/book/index.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// Note: In a real scenario, the eZee Property ID and other keys 
+// would be provided by the client and pulled from environment variables.
+const EZ_PROPERTY_ID = "YOUR_PROPERTY_ID"; 
+---
+
+<BaseLayout 
+  title="Book Your Stay — Koko Maya Resort" 
+  description="Secure your stay at Koko Maya Resort, Morjim. Book directly for the best rates and exclusive offers."
+>
+  <section class="section section--sand p-booking">
+    <div class="container container--narrow">
+      <header class="section-header text-center">
+        <h1 class="section-title">Reserve Your Sanctuary</h1>
+        <p class="section-body" style="margin-inline:auto">
+          Choose your dates and room type. Our real-time booking engine ensures 
+          your reservation is confirmed instantly.
+        </p>
+      </header>
+
+      <div class="booking-widget-wrap card">
+        <!-- 
+          BOOKING ENGINE INTEGRATION:
+          In production, this would be the eZee Technosys widget embed.
+          We provide a friendly fallback/instruction state here.
+        -->
+        <div id="ezee-widget-container" class="ezee-placeholder">
+          <div class="ezee-placeholder__content">
+            <span class="icon-calendar"></span>
+            <h3>Booking Engine Integration</h3>
+            <p>The eZee Technosys booking widget will be initialized here.</p>
+            
+            <div class="dev-note">
+              <strong>Developer Note:</strong> To activate the real widget:
+              <ol>
+                <li>Obtain your Property ID from eZee.</li>
+                <li>Add the eZee script source in this template.</li>
+                <li>Ensure the target container ID matches your eZee config.</li>
+              </ol>
+            </div>
+            
+            <!-- Example Script Tags (Commented for Scaffolding) -->
+            <!-- 
+            <script is:inline src={`https://live.ipms247.com/booking/book-rooms-${EZ_PROPERTY_ID}.js`}></script>
+            -->
+          </div>
+        </div>
+      </div>
+
+      <div class="booking-support card">
+        <h3>Need Personal Assistance?</h3>
+        <p>If you prefer to book over the phone or have special requirements, our reservations team is here to help.</p>
+        <div class="support-actions">
+          <a href="tel:+911234567890" class="btn btn--outline">Call +91 12345 67890</a>
+          <a href="/contact/" class="btn btn--outline">Email Reservations</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .p-booking { padding-block: var(--space-24); }
+  .container--narrow { max-width: 900px; }
+  
+  .booking-widget-wrap { 
+    min-height: 500px; 
+    margin-bottom: var(--space-12);
+    background: var(--color-white);
+    border: 1px dashed var(--color-sand-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ezee-placeholder { text-align: center; padding: var(--space-12); }
+  .ezee-placeholder__content h3 { font-size: var(--text-2xl); margin-block: var(--space-4); color: var(--color-charcoal); }
+  .ezee-placeholder__content p { color: var(--color-muted); margin-bottom: var(--space-8); }
+
+  .dev-note { 
+    background: var(--color-surface); 
+    padding: var(--space-6); 
+    border-radius: var(--radius-md); 
+    text-align: left; 
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+  .dev-note strong { color: var(--color-ocean); display: block; margin-bottom: var(--space-2); }
+  .dev-note ol { padding-left: var(--space-6); margin-top: var(--space-2); }
+
+  .booking-support { padding: var(--space-8); text-align: center; background: var(--color-white); border: 1px solid var(--color-sand-dark); }
+  .booking-support h3 { margin-bottom: var(--space-4); }
+  .support-actions { display: flex; gap: var(--space-4); justify-content: center; margin-top: var(--space-6); flex-wrap: wrap; }
+
+  @media (max-width: 600px) {
+    .support-actions .btn { width: 100%; }
+  }
+</style>

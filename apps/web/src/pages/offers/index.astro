@@ -1,0 +1,174 @@
+---
+// apps/web/src/pages/offers/index.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { offers } from '../../data/offers';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Koko Maya Resort Special Offers",
+  "description": "Exclusive deals and packages for your stay in Morjim, Goa.",
+  "itemListElement": offers.map((offer, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": {
+      "@type": "Offer",
+      "name": offer.title,
+      "description": offer.summary,
+      "image": `https://www.yourdomain.com${offer.image}`,
+      "availability": "https://schema.org/InStock"
+    }
+  }))
+};
+---
+
+<BaseLayout 
+  title="Special Offers — Best Rates Guaranteed | Koko Maya Resort" 
+  description="Discover exclusive deals for your stay at Koko Maya Resort, including direct booking discounts and dining perks."
+  jsonLd={jsonLd}
+>
+  <!-- Hero Section -->
+  <section class="offers-hero">
+    <div class="offers-hero__bg" style="background-image: url('/images/hero/offers-banner.jpg')"></div>
+    <div class="offers-hero__overlay"></div>
+    <div class="container offers-hero__content">
+       <p class="eyebrow" style="color:var(--color-sand)">Stay More, Save More</p>
+       <h1 class="hero-title" style="font-size: var(--text-4xl);">Exclusive Offers</h1>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section class="section section--sand p-offers">
+    <div class="container">
+      <header class="section-header">
+        <h2 class="section-title">Packages Crafted For You</h2>
+        <hr class="divider divider--center" />
+        <p class="section-body">
+          From seasonal getaways to member-only rewards, explore the ways 
+          to make your Koko Maya experience even more memorable.
+        </p>
+      </header>
+
+      <div class="offers-stack">
+        {offers.map((offer) => (
+          <article class="offer-strip card">
+            <div class="offer-strip__img-wrap">
+              <img src={offer.image} alt={offer.title} class="offer-strip__img" loading="lazy" />
+              <span class="badge badge--sunset offer-strip__badge">{offer.badge}</span>
+            </div>
+            <div class="offer-strip__content">
+              <h3 class="offer-strip__title">{offer.title}</h3>
+              <p class="offer-strip__desc">{offer.summary}</p>
+              
+              {offer.promoCode && (
+                <div class="offer-strip__promo">
+                  <span class="promo-label">Use Code</span>
+                  <code class="promo-code">{offer.promoCode}</code>
+                </div>
+              )}
+
+              {offer.validUntil && (
+                <p class="offer-strip__validity">
+                  Valid until {new Date(offer.validUntil).toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' })}
+                </p>
+              )}
+
+              <div class="offer-strip__actions">
+                <a href={`/offers/${offer.slug}/`} class="btn btn--outline">Terms & Details</a>
+                <a href={`/book/${offer.promoCode ? `?promo=${offer.promoCode}` : ''}`} class="btn btn--primary">Book Now</a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .offers-hero {
+    position: relative;
+    height: 35vh;
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+    color: var(--color-white);
+    overflow: hidden;
+  }
+  .offers-hero__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
+  .offers-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5));
+  }
+  .offers-hero__content { position: relative; z-index: 2; }
+
+  .offers-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    margin-top: var(--space-12);
+  }
+
+  .offer-strip {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    overflow: hidden;
+  }
+
+  .offer-strip__img-wrap {
+    position: relative;
+    height: 100%;
+  }
+  .offer-strip__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .offer-strip__badge {
+    position: absolute;
+    top: var(--space-4);
+    left: var(--space-4);
+  }
+
+  .offer-strip__content {
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .offer-strip__title { font-size: var(--text-2xl); color: var(--color-charcoal); }
+  .offer-strip__desc { font-size: var(--text-base); color: var(--color-muted); line-height: var(--leading-loose); }
+
+  .offer-strip__promo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-4);
+    background: var(--color-ocean-light);
+    border-radius: var(--radius-md);
+    width: fit-content;
+  }
+  .promo-label { font-size: var(--text-xs); color: var(--color-ocean); font-weight: var(--weight-semibold); text-transform: uppercase; }
+  .promo-code { font-size: var(--text-lg); font-weight: var(--weight-bold); color: var(--color-ocean); font-family: monospace; }
+  
+  .offer-strip__validity { font-size: var(--text-xs); color: var(--color-muted); font-style: italic; }
+
+  .offer-strip__actions {
+    display: flex;
+    gap: var(--space-4);
+    margin-top: auto;
+  }
+
+  @media (max-width: 768px) {
+    .offer-strip { grid-template-columns: 1fr; }
+    .offer-strip__img-wrap { height: 200px; }
+    .offer-strip__content { padding: var(--space-6); }
+  }
+</style>

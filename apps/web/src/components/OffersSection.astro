@@ -1,0 +1,99 @@
+---
+// OffersSection.astro
+import { offers } from '../data/offers';
+---
+
+<section class="section section--surface offers-section" id="offers" aria-labelledby="offers-title">
+  <div class="container">
+    <header class="section-header">
+      <p class="eyebrow">Special Deals</p>
+      <h2 class="section-title" id="offers-title">Offers Just for You</h2>
+      <hr class="divider divider--center" />
+      <p class="section-body">
+        Take advantage of packages and special offers crafted to enhance your stay.
+        From seasonal deals to curated experiences, there's something for every traveller.
+      </p>
+    </header>
+
+    <ul class="offers-grid" role="list" aria-label="Current offers">
+      {offers.map(offer => (
+        <li class="card offer-card">
+          <div class="offer-card__img-wrap">
+            <img src={offer.image} alt={offer.title}
+                 width="440" height="260" loading="lazy" class="offer-card__img" />
+            <span class="badge badge--sunset offer-card__badge">{offer.badge}</span>
+          </div>
+          <div class="offer-card__body">
+            <h3 class="offer-card__title">{offer.title}</h3>
+            <p class="offer-card__summary">{offer.summary}</p>
+            {offer.promoCode && (
+              <div class="offer-card__promo">
+                <span class="promo-label">Promo code</span>
+                <code class="promo-code">{offer.promoCode}</code>
+              </div>
+            )}
+            {offer.validUntil && (
+              <p class="offer-card__validity">Valid until {new Date(offer.validUntil).toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' })}</p>
+            )}
+            <div class="offer-card__ctas">
+              <a href={`/offers/${offer.slug}/`} class="btn btn--outline">Know More</a>
+              <a href={`/book/${offer.promoCode ? `?promo=${offer.promoCode}` : ''}`} class="btn btn--primary">Book Now</a>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+
+    <div class="offers-footer">
+      <a href="/offers/" class="btn btn--outline">View All Offers</a>
+    </div>
+  </div>
+</section>
+
+<style>
+.offers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  gap: var(--space-8);
+  margin-top: var(--space-12);
+  list-style: none; padding: 0;
+}
+.offer-card__img-wrap {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+.offer-card__img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease);
+}
+.offer-card:hover .offer-card__img { transform: scale(1.04); }
+.offer-card__badge { position: absolute; top: var(--space-4); left: var(--space-4); }
+.offer-card__body { padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-3); }
+.offer-card__title {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  color: var(--color-charcoal);
+}
+.offer-card__summary { font-size: var(--text-sm); color: var(--color-muted); line-height: var(--leading-loose); }
+.offer-card__promo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: hsl(200 55% 26% / 0.06);
+  border-radius: var(--radius-md);
+  border: 1px dashed hsl(200 55% 26% / 0.25);
+}
+.promo-label { font-size: var(--text-xs); color: var(--color-muted); }
+.promo-code {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-ocean);
+  letter-spacing: 0.08em;
+}
+.offer-card__validity { font-size: var(--text-xs); color: var(--color-muted); }
+.offer-card__ctas { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: auto; }
+.offers-footer { text-align: center; margin-top: var(--space-12); }
+</style>

@@ -1,0 +1,207 @@
+---
+// apps/web/src/pages/faq/index.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const faqs = [
+  {
+    category: 'Reservations & Check-in',
+    items: [
+      { q: 'What are the check-in and check-out times?', a: 'Check-in is from 2:00 PM and check-out is until 11:00 AM. Early check-in or late check-out is subject to availability and may incur additional charges.' },
+      { q: 'What is your cancellation policy?', a: 'Our standard policy allows free cancellation up to 48 hours before the check-in date. For non-refundable rates or special event dates, different policies may apply.' },
+      { q: 'Do you require a security deposit?', a: 'Yes, a valid government-issued photo ID and a small security deposit (refundable at check-out) are required upon arrival.' }
+    ]
+  },
+  {
+    category: 'Rooms & Amenities',
+    items: [
+      { q: 'Is Wi-Fi available in the rooms?', a: 'Yes, we provide complimentary high-speed Wi-Fi in all our rooms and public areas.' },
+      { q: 'Are your rooms air-conditioned?', a: 'Absolutely. All our room types (Deluxe and Executive) are equipped with high-performance air-conditioning systems.' },
+      { q: 'Do you provide extra beds?', a: 'Yes, extra beds can be provided in our rooms for an additional charge. Our rooms can accommodate up to 5 guests total with extra bedding.' }
+    ]
+  },
+  {
+    category: 'Dining & Facilities',
+    items: [
+      { q: 'Do you have a restaurant on-site?', a: 'Yes, "Curry, Wok & Waves" is our multi-cuisine restaurant located on the first floor, serving breakfast, lunch, and dinner.' },
+      { q: 'Is the swimming pool accessible to all guests?', a: 'Yes, our swimming pool is open to all in-house guests from 8:00 AM to 8:00 PM daily.' },
+      { q: 'Do you offer airport transfers?', a: 'Yes, we can arrange airport transfers for an additional fee. Please contact our travel desk 24 hours in advance.' }
+    ]
+  },
+  {
+    category: 'Location & Nearby',
+    items: [
+      { q: 'How far is Koko Maya Resort from Morjim Beach?', a: 'We are situated just a short 700-meter walk from the beautiful Morjim Beach.' },
+      { q: 'Are there shops and cafes nearby?', a: 'Yes, Morjim is a vibrant area with numerous local shops, cafes, and shacks within walking distance of the resort.' }
+    ]
+  }
+];
+---
+
+<BaseLayout 
+  title="Frequently Asked Questions (FAQ) | Koko Maya Resort" 
+  description="Find answers to common questions about reservations, amenities, and your stay at Koko Maya Resort in Morjim, Goa."
+>
+  <!-- Hero Section -->
+  <section class="faq-hero">
+    <div class="faq-hero__bg" style="background-image: url('/images/hero/faq-banner.jpg')"></div>
+    <div class="faq-hero__overlay"></div>
+    <div class="container faq-hero__content">
+       <p class="eyebrow" style="color:var(--color-sand)">How Can We Help?</p>
+       <h1 class="hero-title" style="font-size: var(--text-4xl);">Common Questions</h1>
+    </div>
+  </section>
+
+  <!-- FAQ Content -->
+  <section class="section section--sand p-faq">
+    <div class="container faq-container">
+      <div class="faq-nav sticky-nav">
+        <h2 class="faq-nav__title">Categories</h2>
+        <ul class="faq-nav__list" role="list">
+          {faqs.map(cat => (
+            <li class="faq-nav__item">
+              <a href={`#${cat.category.toLowerCase().replace(/\s+/g, '-')}`} class="faq-nav__link">{cat.category}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="faq-groups">
+        {faqs.map(cat => (
+          <div class="faq-group" id={cat.category.toLowerCase().replace(/\s+/g, '-')}>
+            <h2 class="faq-group__title">{cat.category}</h2>
+            <div class="faq-list">
+              {cat.items.map(item => (
+                <details class="faq-item">
+                  <summary class="faq-item__q">
+                    {item.q}
+                    <span class="faq-item__icon"></span>
+                  </summary>
+                  <div class="faq-item__a">
+                    <p>{item.a}</p>
+                  </div>
+                </details>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Still Have Questions? -->
+  <section class="section faq-cta">
+    <div class="container text-center">
+      <h2 class="section-title">Still Have Questions?</h2>
+      <p class="section-body" style="margin-inline:auto">
+        If you can't find what you're looking for, our friendly front 
+        desk team is available 24/7 to assist you.
+      </p>
+      <div style="margin-top:var(--space-8); display:flex; gap:var(--space-4); justify-content:center;">
+        <a href="/contact/" class="btn btn--primary">Contact Us</a>
+        <a href="tel:+911234567890" class="btn btn--outline">Call Now</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .faq-hero {
+    position: relative;
+    height: 30vh;
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+    color: white;
+    overflow: hidden;
+  }
+  .faq-hero__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
+  .faq-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5));
+  }
+  .faq-hero__content { position: relative; z-index: 2; }
+
+  .faq-container {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: var(--space-16);
+    margin-top: var(--space-8);
+  }
+
+  .faq-nav__title { font-size: var(--text-lg); font-weight: var(--weight-bold); margin-bottom: var(--space-4); }
+  .faq-nav__list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+  .faq-nav__link { 
+    display: block; 
+    padding: var(--space-2) var(--space-4); 
+    color: var(--color-muted); 
+    font-size: var(--text-sm); 
+    border-radius: var(--radius-sm);
+    transition: all var(--duration-fast);
+  }
+  .faq-nav__link:hover { background: var(--color-sand-dark); color: var(--color-charcoal); }
+  .sticky-nav { position: sticky; top: calc(var(--nav-height) + var(--space-8)); }
+
+  .faq-groups { display: flex; flex-direction: column; gap: var(--space-16); }
+  .faq-group__title { 
+    font-size: var(--text-2xl); 
+    color: var(--color-charcoal); 
+    margin-bottom: var(--space-8); 
+    padding-bottom: var(--space-4);
+    border-bottom: 2px solid var(--color-sunset);
+  }
+
+  .faq-list { display: flex; flex-direction: column; gap: var(--space-4); }
+  
+  .faq-item {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-sand-dark);
+    overflow: hidden;
+  }
+  .faq-item__q {
+    padding: var(--space-6);
+    cursor: pointer;
+    font-weight: var(--weight-semibold);
+    color: var(--color-charcoal);
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+  }
+  .faq-item__q::-webkit-details-marker { display: none; }
+  
+  .faq-item__icon {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    transition: transform var(--duration-normal);
+  }
+  .faq-item__icon::before, .faq-item__icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--color-ocean);
+  }
+  .faq-item__icon::before { width: 12px; height: 2px; }
+  .faq-item__icon::after { width: 2px; height: 12px; }
+
+  .faq-item[open] .faq-item__icon { transform: rotate(45deg); }
+  .faq-item[open] .faq-item__q { border-bottom: 1px solid var(--color-sand-dark); }
+
+  .faq-item__a { padding: var(--space-6); background: var(--color-surface); font-size: var(--text-base); color: var(--color-muted); line-height: var(--leading-loose); }
+
+  @media (max-width: 900px) {
+    .faq-container { grid-template-columns: 1fr; }
+    .faq-nav { display: none; }
+  }
+  .text-center { text-align: center; }
+</style>

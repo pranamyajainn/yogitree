@@ -1,0 +1,171 @@
+---
+// RoomsSection.astro — Room cards grid on home page
+export interface RoomCard {
+  slug: string;
+  name: string;
+  size: number;
+  maxGuests: number;
+  bedType: string;
+  description: string;
+  image: string;
+  highlights?: string[];
+}
+
+const rooms: RoomCard[] = [
+  {
+    slug: 'deluxe-room-balcony',
+    name: 'Deluxe Room With Balcony',
+    size: 280,
+    maxGuests: 5,
+    bedType: 'Double Bed',
+    description: 'A 280 sq. ft. room for up to 5 guests, complete with a balcony where gentle sea breezes greet your morning coffee.',
+    image: '/images/rooms/deluxe-balcony.jpg',
+    highlights: ['Balcony', 'Sea Breeze', 'Up to 5 Guests'],
+  },
+  {
+    slug: 'executive-room-balcony',
+    name: 'Executive Room With Balcony',
+    size: 300,
+    maxGuests: 5,
+    bedType: '4-Poster King Size',
+    description: 'A 300 sq. ft. room featuring a 4-poster king size bed and warm, inviting lighting that lets in the refreshing sea breeze.',
+    image: '/images/rooms/executive-balcony.jpg',
+    highlights: ['4-Poster Bed', 'Sea Breeze', 'City Amenities'],
+  },
+  {
+    slug: 'executive-room-balcony-pool-view',
+    name: 'Executive Room With Balcony & Pool View',
+    size: 300,
+    maxGuests: 5,
+    bedType: 'King Size',
+    description: 'Every detail — from the lighting and décor to the balcony pool views — has been thoughtfully designed for your perfect stay.',
+    image: '/images/rooms/executive-pool-view.jpg',
+    highlights: ['Pool View', 'Designer Décor', 'Private Balcony'],
+  },
+];
+---
+
+<section class="section section--surface rooms-section" id="rooms" aria-labelledby="rooms-title">
+  <div class="container">
+    <header class="section-header">
+      <p class="eyebrow">Accommodations</p>
+      <h2 class="section-title" id="rooms-title">Balconies Kissed<br/> by the Breeze of Morjim Sea</h2>
+      <hr class="divider divider--center" />
+      <p class="section-body">
+        Three thoughtfully designed room types — each with a private balcony, modern amenities,
+        and views that make Goa feel even more special.
+      </p>
+    </header>
+
+    <ul class="rooms-grid" role="list" aria-label="Room types">
+      {rooms.map(room => (
+        <li class="card room-card">
+          <a href={`/rooms/${room.slug}/`} class="room-card__img-link" aria-label={`View ${room.name}`} tabindex="-1">
+            <div class="room-card__img-wrap">
+              <img src={room.image} alt={room.name}
+                   width="560" height="380"
+                   loading="lazy"
+                   class="room-card__img" />
+              <div class="room-card__img-overlay" aria-hidden="true"></div>
+            </div>
+          </a>
+          <div class="room-card__body">
+            <div class="room-card__meta">
+              {room.highlights?.map(h => <span class="badge">{h}</span>)}
+            </div>
+            <h3 class="room-card__title">
+              <a href={`/rooms/${room.slug}/`}>{room.name}</a>
+            </h3>
+            <p class="room-card__desc">{room.description}</p>
+            <div class="room-card__specs">
+              <span class="room-spec">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                {room.size} sq. ft.
+              </span>
+              <span class="room-spec">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                Up to {room.maxGuests} guests
+              </span>
+              <span class="room-spec">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                {room.bedType}
+              </span>
+            </div>
+            <a href={`/book/?room=${room.slug}`} class="btn btn--primary room-card__cta">
+              Book Now
+            </a>
+          </div>
+        </li>
+      ))}
+    </ul>
+
+    <div class="rooms-footer">
+      <a href="/rooms/" class="btn btn--outline">View All Rooms & Rates</a>
+    </div>
+  </div>
+</section>
+
+<style>
+.rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
+  gap: var(--space-8);
+  margin-top: var(--space-12);
+  list-style: none;
+  padding: 0;
+}
+.room-card { display: flex; flex-direction: column; }
+.room-card__img-wrap {
+  position: relative;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+}
+.room-card__img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease);
+}
+.room-card:hover .room-card__img { transform: scale(1.05); }
+.room-card__img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, hsl(222 14% 10% / 0.35) 0%, transparent 60%);
+}
+.room-card__body {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  flex: 1;
+}
+.room-card__meta { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+.room-card__title {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+}
+.room-card__title a {
+  text-decoration: none;
+  color: var(--color-charcoal);
+  transition: color var(--dur-fast);
+}
+.room-card__title a:hover { color: var(--color-ocean); }
+.room-card__desc {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  line-height: var(--leading-loose);
+}
+.room-card__specs {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+}
+.room-spec {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+.room-card__cta { margin-top: auto; align-self: flex-start; }
+.rooms-footer { text-align: center; margin-top: var(--space-12); }
+</style>

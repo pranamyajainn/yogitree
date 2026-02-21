@@ -1,0 +1,164 @@
+---
+// apps/web/src/pages/gallery/index.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const categories = ['All', 'Rooms', 'Dining', 'Pool', 'Nature'];
+
+const images = [
+  { url: '/images/gallery/room-1.jpg', cat: 'Rooms', alt: 'Deluxe Room interior' },
+  { url: '/images/gallery/dining-1.jpg', cat: 'Dining', alt: 'Restaurant view' },
+  { url: '/images/gallery/pool-1.jpg', cat: 'Pool', alt: 'Pool at night' },
+  { url: '/images/gallery/nature-1.jpg', cat: 'Nature', alt: 'Morjim beach palm trees' },
+  { url: '/images/gallery/room-2.jpg', cat: 'Rooms', alt: 'Executive Room 4-poster bed' },
+  { url: '/images/gallery/dining-2.jpg', cat: 'Dining', alt: 'Signature Goan dish' },
+  { url: '/images/gallery/pool-2.jpg', cat: 'Pool', alt: 'Sunbeds by the pool' },
+  { url: '/images/gallery/nature-2.jpg', cat: 'Nature', alt: 'Sunset over the Arabian Sea' },
+  { url: '/images/gallery/room-3.jpg', cat: 'Rooms', alt: 'Balcony view' },
+];
+---
+
+<BaseLayout 
+  title="Gallery — A Visual Tour of Koko Maya Resort" 
+  description="Explore our boutique hotel in Morjim through our photo gallery. See our rooms, pool, restaurant, and the beauty of Morjim Beach."
+>
+  <!-- Hero Section -->
+  <section class="gallery-hero">
+    <div class="gallery-hero__bg" style="background-image: url('/images/hero/gallery-banner.jpg')"></div>
+    <div class="gallery-hero__overlay"></div>
+    <div class="container gallery-hero__content">
+       <p class="eyebrow" style="color:var(--color-sand)">Capture the Moment</p>
+       <h1 class="hero-title" style="font-size: var(--text-4xl);">Visual Gallery</h1>
+    </div>
+  </section>
+
+  <!-- Gallery Grid -->
+  <section class="section section--sand p-gallery">
+    <div class="container">
+      <!-- Filter Bar -->
+      <nav class="gallery-filters" aria-label="Gallery filters">
+        <div class="filter-list">
+          {categories.map(cat => (
+            <button class:list={["filter-btn", { "active": cat === 'All' }]} data-filter={cat.toLowerCase()}>
+              {cat}
+            </button>
+          ))}
+        </div>
+      </nav>
+
+      <!-- Grid -->
+      <div class="gallery-grid" id="gallery-grid">
+        {images.map(img => (
+          <div class="gallery-card" data-category={img.cat.toLowerCase()}>
+            <div class="gallery-card__inner">
+              <img src={img.url} alt={img.alt} class="gallery-card__img" loading="lazy" />
+              <div class="gallery-card__overlay">
+                <span class="gallery-card__tag">{img.cat}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const galleryItems = document.querySelectorAll('.gallery-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Update active state
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = (btn as HTMLElement).dataset.filter;
+
+      // Filter grid
+      galleryItems.forEach(item => {
+        const cat = (item as HTMLElement).dataset.category;
+        if (filter === 'all' || cat === filter) {
+          (item as HTMLElement).style.display = 'block';
+        } else {
+          (item as HTMLElement).style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .gallery-hero {
+    position: relative;
+    height: 35vh;
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+    color: white;
+    overflow: hidden;
+  }
+  .gallery-hero__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
+  .gallery-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5));
+  }
+  .gallery-hero__content { position: relative; z-index: 2; }
+
+  .gallery-filters { margin-bottom: var(--space-12); display: flex; justify-content: center; }
+  .filter-list { 
+    display: flex; 
+    gap: var(--space-2); 
+    background: var(--color-white); 
+    padding: var(--space-1); 
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-sm);
+  }
+  .filter-btn {
+    padding: var(--space-2) var(--space-6);
+    border: none;
+    background: transparent;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-muted);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all var(--dur-fast);
+  }
+  .filter-btn:hover { color: var(--color-charcoal); }
+  .filter-btn.active { background: var(--color-ocean); color: var(--color-white); }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-6);
+  }
+
+  .gallery-card {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+  }
+  .gallery-card__inner { position: relative; aspect-ratio: 4/3; }
+  .gallery-card__img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--dur-normal); }
+  .gallery-card:hover .gallery-card__img { transform: scale(1.05); }
+
+  .gallery-card__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+    opacity: 0;
+    transition: opacity var(--dur-normal);
+    display: flex;
+    align-items: flex-end;
+    padding: var(--space-6);
+  }
+  .gallery-card:hover .gallery-card__overlay { opacity: 1; }
+  .gallery-card__tag { color: white; font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.1em; }
+</style>

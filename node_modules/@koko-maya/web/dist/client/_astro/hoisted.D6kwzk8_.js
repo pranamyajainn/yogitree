@@ -1,0 +1,1 @@
+import"./hoisted.BrKH_MOv.js";const a=document.querySelectorAll(".filter-btn"),s=document.querySelectorAll(".gallery-card");a.forEach(t=>{t.addEventListener("click",()=>{a.forEach(e=>e.classList.remove("active")),t.classList.add("active");const l=t.dataset.filter;s.forEach(e=>{const c=e.dataset.category;l==="all"||c===l?e.style.display="block":e.style.display="none"})})});

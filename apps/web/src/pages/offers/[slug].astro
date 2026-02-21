@@ -1,0 +1,182 @@
+---
+// apps/web/src/pages/offers/[slug].astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { offers } from '../../data/offers';
+
+export function getStaticPaths() {
+  return offers.map((offer) => ({
+    params: { slug: offer.slug },
+    props: { offer },
+  }));
+}
+
+const { offer } = Astro.props;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Offer",
+  "name": offer.title,
+  "description": offer.description,
+  "image": `https://www.yourdomain.com${offer.image}`,
+  "availability": "https://schema.org/InStock"
+};
+---
+
+<BaseLayout 
+  title={`${offer.title} | Exclusive Deal | Koko Maya Resort`}
+  description={offer.summary}
+  jsonLd={jsonLd}
+>
+  <article class="offer-detail">
+    <!-- Hero Section -->
+    <header class="offer-detail__hero">
+      <div class="offer-detail__hero-bg" style={`background-image: url('${offer.image}')`}></div>
+      <div class="offer-detail__hero-overlay"></div>
+      <div class="container offer-detail__hero-content">
+        <span class="badge badge--sunset" style="margin-bottom: var(--space-4);">{offer.badge}</span>
+        <h1 class="hero-title" style="font-size: var(--text-4xl);">{offer.title}</h1>
+      </div>
+    </header>
+
+    <!-- Content Section -->
+    <section class="section section--sand offer-detail__content">
+      <div class="container offer-grid">
+        <div class="offer-main">
+          <div class="offer-prose">
+            <h2 class="section-title">About This Offer</h2>
+            <p class="section-body">{offer.description}</p>
+          </div>
+
+          <div class="offer-terms">
+            <h3 class="offer-terms__title">Terms & Conditions</h3>
+            <ul class="terms-list" role="list">
+              {offer.terms.map(term => (
+                <li class="term-item">{term}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="offer-sidebar">
+          <div class="booking-card sticky-sidebar">
+            <div class="booking-card__header">
+              <span class="price-label">Promo Code</span>
+              <div class="promo-box">
+                {offer.promoCode ? (
+                  <code class="promo-code">{offer.promoCode}</code>
+                ) : (
+                  <span class="promo-none">Automatic Apply</span>
+                )}
+              </div>
+            </div>
+            <div class="booking-card__body">
+              {offer.validUntil && (
+                <div class="validity-box">
+                  <span class="v-label">Valid Until</span>
+                  <span class="v-val">{new Date(offer.validUntil).toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' })}</span>
+                </div>
+              )}
+              <p class="booking-note">Lock in this special rate today.</p>
+              <a href={`/book/${offer.promoCode ? `?promo=${offer.promoCode}` : ''}`} class="btn btn--primary btn--lg" style="width:100%;justify-content:center;">Book This Offer</a>
+              <p class="booking-help">Booking for a group? <a href="/contact/">Enquire Now</a></p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Other Offers Section -->
+    <section class="section offer-detail__more">
+      <div class="container">
+        <h2 class="section-title text-center">More Ways to Save</h2>
+        <div class="more-offers-grid" style="margin-top: var(--space-12); display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-8);">
+           {offers.filter(o => o.slug !== offer.slug).slice(0, 2).map(o => (
+             <article class="card more-offer-card">
+               <div style="aspect-ratio: 16/9; overflow:hidden">
+                 <img src={o.image} alt={o.title} style="width:100%; height:100%; object-fit:cover" />
+               </div>
+               <div style="padding: var(--space-6); display:flex; flex-direction:column; gap: var(--space-3)">
+                 <h3 style="font-size: var(--text-lg);">{o.title}</h3>
+                 <a href={`/offers/${o.slug}/`} class="btn btn--outline" style="align-self: flex-start;">Details</a>
+               </div>
+             </article>
+           ))}
+        </div>
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .offer-detail__hero {
+    position: relative;
+    height: 40vh;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    color: white;
+    overflow: hidden;
+  }
+  .offer-detail__hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
+  .offer-detail__hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+  }
+  .offer-detail__hero-content { position: relative; z-index: 2; }
+
+  .offer-grid {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: var(--space-16);
+    align-items: start;
+  }
+
+  .offer-main { display: flex; flex-direction: column; gap: var(--space-12); }
+
+  .offer-terms {
+    background: var(--color-white);
+    padding: var(--space-8);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-sand-dark);
+  }
+  .offer-terms__title { font-family: var(--font-body); font-size: var(--text-lg); font-weight: var(--weight-semibold); margin-bottom: var(--space-6); }
+  .terms-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: var(--space-3); }
+  .term-item { font-size: var(--text-sm); color: var(--color-muted); display: flex; gap: var(--space-3); }
+  .term-item::before { content: '•'; color: var(--color-sunset); font-weight: bold; }
+
+  .booking-card {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    border: 1px solid var(--color-sand-dark);
+  }
+  .sticky-sidebar { position: sticky; top: calc(var(--nav-height) + var(--space-8)); }
+  .booking-card__header { padding: var(--space-6); background: var(--color-ocean); color: white; text-align: center; }
+  .price-label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.8; display: block; margin-bottom: var(--space-2); }
+  .promo-code { font-size: var(--text-2xl); font-weight: var(--weight-bold); font-family: monospace; }
+  .promo-none { font-size: var(--text-lg); font-weight: var(--weight-semibold); }
+
+  .booking-card__body { padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-6); }
+  .validity-box { display: flex; flex-direction: column; align-items: center; padding-bottom: var(--space-4); border-bottom: 1px solid var(--color-sand-dark); }
+  .v-label { font-size: var(--text-xs); color: var(--color-muted); text-transform: uppercase; }
+  .v-val { font-size: var(--text-base); font-weight: var(--weight-semibold); color: var(--color-charcoal); }
+  
+  .booking-note { font-size: var(--text-sm); text-align: center; color: var(--color-muted); }
+  .booking-help { font-size: var(--text-xs); text-align: center; color: var(--color-muted); }
+  .booking-help a { color: var(--color-ocean); font-weight: var(--weight-medium); }
+
+  @media (max-width: 900px) {
+    .offer-grid { grid-template-columns: 1fr; }
+    .offer-sidebar { order: -1; }
+    .sticky-sidebar { position: static; }
+  }
+  .text-center { text-align: center; }
+</style>

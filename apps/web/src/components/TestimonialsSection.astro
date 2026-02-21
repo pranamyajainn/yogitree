@@ -1,0 +1,178 @@
+---
+// TestimonialsSection.astro
+const testimonials = [
+  {
+    title: 'Rooms that Feel Like Home',
+    body: 'Stayed at Koko Maya and had an amazing experience! The hotel is beautiful, rooms are clean and comfortable. A special mention to the staff whose hospitality truly made our stay memorable.',
+    author: 'Priya S.',
+    rating: 5,
+  },
+  {
+    title: 'The Perfect Blend of Comfort & Care',
+    body: 'The accommodations were truly delightful and exceeded expectations. The breakfast provided was exceptional, offering a delicious array of flavours. Every aspect contributed to a memorable experience.',
+    author: 'Rahul M.',
+    rating: 5,
+  },
+  {
+    title: 'Budget-friendly Comfort',
+    body: 'The rooms are spacious, spotless, and budget-friendly, offering great value for your stay. The kitchen serves delicious meals with attentive service that makes every dining experience a delight.',
+    author: 'Ananya T.',
+    rating: 5,
+  },
+  {
+    title: 'Special Care for Senior Guests',
+    body: 'Set in a beautiful location, the staff is friendly and attentive. Breakfast offers a variety of options and the team is always ready to cater to special requests, especially for senior citizens.',
+    author: 'Vikram & family',
+    rating: 5,
+  },
+  {
+    title: 'Service You Can Count On',
+    body: 'The staff was exceptionally friendly and always ready to help. Our rooms were spacious and spotless, and the food was delicious. Definitely worth experiencing!',
+    author: 'Deepa K.',
+    rating: 5,
+  },
+];
+---
+
+<section class="section section--sand testimonials-section" id="testimonials" aria-labelledby="testimonials-title">
+  <div class="container">
+    <header class="section-header">
+      <p class="eyebrow">Guest Stories</p>
+      <h2 class="section-title" id="testimonials-title">What Our Guests Say</h2>
+      <hr class="divider divider--center" />
+    </header>
+
+    <div class="testimonials-track-wrap" aria-live="polite" aria-roledescription="carousel">
+      <div class="testimonials-track" id="testimonials-track">
+        {testimonials.map((t, i) => (
+          <article class:list={['testimonial-card', { 'testimonial-card--active': i === 0 }]}
+                   aria-hidden={i !== 0}
+                   aria-label={`Review: ${t.title}`}>
+            <div class="testimonial-card__stars" aria-label={`Rating: ${t.rating} out of 5`}>
+              {Array.from({ length: t.rating }).map(() => (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              ))}
+            </div>
+            <h3 class="testimonial-card__title">"{t.title}"</h3>
+            <p class="testimonial-card__body">{t.body}</p>
+            <p class="testimonial-card__author">— {t.author}</p>
+          </article>
+        ))}
+      </div>
+      <div class="testimonials-controls">
+        <button class="testimonial-btn" id="t-prev" aria-label="Previous testimonial">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="testimonials-dots" id="t-dots" role="tablist" aria-label="Testimonial navigation">
+          {testimonials.map((_, i) => (
+            <button class:list={['hero-dot', { 'hero-dot--active': i === 0 }]}
+                    role="tab" aria-selected={i === 0} aria-label={`Testimonial ${i+1}`} data-index={i} />
+          ))}
+        </div>
+        <button class="testimonial-btn" id="t-next" aria-label="Next testimonial">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.testimonials-track-wrap { margin-top: var(--space-12); }
+.testimonials-track {
+  display: grid;
+  grid-template-columns: 1fr;
+  position: relative;
+}
+.testimonial-card {
+  grid-area: 1 / 1;
+  max-width: 680px;
+  margin-inline: auto;
+  text-align: center;
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease);
+  pointer-events: none;
+}
+.testimonial-card--active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+.testimonial-card__stars {
+  display: flex;
+  gap: var(--space-1);
+  justify-content: center;
+  color: var(--color-sunset);
+  margin-bottom: var(--space-4);
+}
+.testimonial-card__title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+  color: var(--color-charcoal);
+  margin-bottom: var(--space-4);
+  line-height: var(--leading-snug);
+}
+.testimonial-card__body {
+  font-size: var(--text-base);
+  color: var(--color-muted);
+  line-height: var(--leading-loose);
+  margin-bottom: var(--space-6);
+}
+.testimonial-card__author {
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-sm);
+  color: var(--color-ocean);
+  letter-spacing: 0.05em;
+}
+.testimonials-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+.testimonial-btn {
+  width: 44px; height: 44px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--color-sand-dark);
+  background: var(--color-white);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: var(--color-charcoal);
+  transition: border-color var(--dur-fast), background var(--dur-fast);
+}
+.testimonial-btn:hover {
+  border-color: var(--color-ocean);
+  background: var(--color-ocean-light);
+  color: var(--color-ocean);
+}
+</style>
+
+<script>
+  const cards = Array.from(document.querySelectorAll('.testimonial-card')) as HTMLElement[];
+  const dots  = Array.from(document.getElementById('t-dots')!.querySelectorAll('button')) as HTMLButtonElement[];
+  let cur = 0;
+
+  function goTo(n: number) {
+    cards[cur].classList.remove('testimonial-card--active');
+    cards[cur].setAttribute('aria-hidden', 'true');
+    dots[cur].classList.remove('hero-dot--active');
+    dots[cur].setAttribute('aria-selected', 'false');
+    cur = (n + cards.length) % cards.length;
+    cards[cur].classList.add('testimonial-card--active');
+    cards[cur].setAttribute('aria-hidden', 'false');
+    dots[cur].classList.add('hero-dot--active');
+    dots[cur].setAttribute('aria-selected', 'true');
+  }
+
+  document.getElementById('t-prev')!.addEventListener('click', () => goTo(cur - 1));
+  document.getElementById('t-next')!.addEventListener('click', () => goTo(cur + 1));
+  dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
+
+  // Auto rotate every 6 s
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    setInterval(() => goTo(cur + 1), 6000);
+  }
+</script>

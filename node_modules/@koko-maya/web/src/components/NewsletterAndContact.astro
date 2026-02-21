@@ -1,0 +1,248 @@
+---
+// NewsletterAndContact.astro — Combined section with newsletter + contact + attractions
+const attractions = [
+  { name: 'Morjim Beach',                distance: '700 m' },
+  { name: 'Ashvem Beach',               distance: '2 km' },
+  { name: 'Morjai Temple',              distance: '2 km' },
+  { name: 'Santa Khuris Mannar Chapel', distance: '2 km' },
+  { name: 'Chapora River View Point',   distance: '2 km' },
+  { name: 'Chapora Fort',               distance: '13 km' },
+];
+---
+
+<!-- Nearby Attractions -->
+<section class="section section--sand attractions-section" id="location" aria-labelledby="attractions-title">
+  <div class="container">
+    <header class="section-header">
+      <p class="eyebrow">Explore Morjim</p>
+      <h2 class="section-title" id="attractions-title">Nearby Tourist Attractions</h2>
+      <hr class="divider divider--center" />
+    </header>
+    <ul class="attractions-list" role="list" aria-label="Nearby attractions">
+      {attractions.map(a => (
+        <li class="attraction-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span class="attraction-name">{a.name}</span>
+          <span class="attraction-distance">{a.distance}</span>
+        </li>
+      ))}
+    </ul>
+    <div class="map-embed" aria-label="Resort location on map">
+      <!-- Replace with actual embed URL -->
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3840.8!2d73.745!3d15.623!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTXCsDM3JzIyLjgiTiA3M8KwNDQnNDIuMCJF!5e0!3m2!1sen!2sin!4v1234567890"
+        width="100%" height="360"
+        style="border:0; border-radius: var(--radius-xl);"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Koko Maya Resort location on Google Maps"
+      ></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter -->
+<section class="section section--ocean newsletter-section" id="newsletter" aria-labelledby="newsletter-title">
+  <div class="container newsletter-inner">
+    <div class="newsletter-text">
+      <p class="eyebrow" style="color:hsl(0 0% 100%/0.65)">Stay in the Loop</p>
+      <h2 class="section-title" id="newsletter-title" style="font-size:var(--text-3xl)">Subscribe to Our Newsletter</h2>
+      <p style="color:hsl(0 0% 100%/0.75);line-height:var(--leading-loose)">
+        Receive updates on the latest news, exclusive offers, and seasonal deals straight to your inbox.
+      </p>
+    </div>
+    <form class="newsletter-form" id="newsletter-form" aria-label="Newsletter subscription form">
+      <div class="newsletter-field">
+        <label for="nl-email" class="sr-only">Your email address</label>
+        <input type="email" id="nl-email" name="email" placeholder="Enter your email address"
+               required autocomplete="email" inputmode="email"
+               class="newsletter-input"
+               aria-required="true" />
+      </div>
+      <button type="submit" class="btn btn--accent">Subscribe</button>
+      <p class="newsletter-status" id="nl-status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="section section--surface contact-section" id="contact" aria-labelledby="contact-title">
+  <div class="container contact-inner">
+    <div class="contact-info">
+      <p class="eyebrow">Get in Touch</p>
+      <h2 class="section-title" id="contact-title">We'd Love to Hear from You</h2>
+      <hr class="divider" />
+      <address class="contact-details">
+        <div class="contact-detail">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>[Street Address], Morjim, Pernem, Goa – 403512</span>
+        </div>
+        <div class="contact-detail">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 14.92z"/></svg>
+          <a href="tel:+917353150111">+91 73 5315 0111</a>
+        </div>
+        <div class="contact-detail">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:hello@yourcustomdomain.com">hello@yourcustomdomain.com</a>
+        </div>
+      </address>
+    </div>
+
+    <form class="contact-form" id="contact-form" action="/api/contact" method="post" aria-label="Enquiry form">
+      <h3 class="contact-form__title">Send Us a Message</h3>
+      <div class="form-group">
+        <label for="c-name" class="form-label">Full Name</label>
+        <input type="text" id="c-name" name="name" required class="form-input" autocomplete="name" />
+      </div>
+      <div class="form-group">
+        <label for="c-email" class="form-label">Email Address</label>
+        <input type="email" id="c-email" name="email" required class="form-input" autocomplete="email" inputmode="email" />
+      </div>
+      <div class="form-group">
+        <label for="c-phone" class="form-label">Phone Number (optional)</label>
+        <input type="tel" id="c-phone" name="phone" class="form-input" autocomplete="tel" inputmode="tel" />
+      </div>
+      <div class="form-group">
+        <label for="c-message" class="form-label">Your Message</label>
+        <textarea id="c-message" name="message" rows="4" required class="form-textarea"></textarea>
+      </div>
+      <!-- Honeypot -->
+      <input type="text" name="website" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <button type="submit" class="btn btn--primary" style="width:100%;justify-content:center;">Send Message</button>
+      <p class="form-status" id="contact-status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<style>
+/* Attractions */
+.attractions-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-10);
+  list-style: none; padding: 0;
+}
+.attraction-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-sand-dark);
+  font-size: var(--text-sm);
+}
+.attraction-item svg { color: var(--color-sunset); flex-shrink: 0; }
+.attraction-name { flex: 1; font-weight: var(--weight-medium); }
+.attraction-distance { color: var(--color-muted); }
+.map-embed { margin-top: var(--space-10); }
+
+/* Newsletter  */
+.newsletter-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  flex-wrap: wrap;
+}
+.newsletter-text { max-width: 40ch; }
+.newsletter-form {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  flex: 1;
+  min-width: 280px;
+  position: relative;
+}
+.newsletter-field { flex: 1; min-width: 200px; }
+.newsletter-input {
+  width: 100%;
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-full);
+  border: 1.5px solid hsl(0 0% 100% / 0.2);
+  background: hsl(0 0% 100% / 0.1);
+  color: var(--color-white);
+  font-size: var(--text-base);
+  transition: border-color var(--dur-fast), background var(--dur-fast);
+}
+.newsletter-input::placeholder { color: hsl(0 0% 100% / 0.5); }
+.newsletter-input:focus {
+  outline: none;
+  border-color: var(--color-sand);
+  background: hsl(0 0% 100% / 0.18);
+}
+.newsletter-status {
+  width: 100%;
+  font-size: var(--text-sm);
+  color: hsl(0 0% 100% / 0.8);
+  margin-top: var(--space-2);
+}
+
+/* Contact */
+.contact-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: var(--space-16);
+  align-items: start;
+}
+@media (max-width: 768px) { .contact-inner { grid-template-columns: 1fr; } }
+.contact-details { font-style: normal; display: flex; flex-direction: column; gap: var(--space-5); margin-top: var(--space-6); }
+.contact-detail { display: flex; align-items: center; gap: var(--space-3); font-size: var(--text-sm); }
+.contact-detail svg { color: var(--color-ocean); flex-shrink: 0; }
+.contact-detail a { color: var(--color-charcoal); text-decoration: none; transition: color var(--dur-fast); }
+.contact-detail a:hover { color: var(--color-ocean); }
+.contact-form {
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+.contact-form__title { font-size: var(--text-2xl); font-weight: var(--weight-semibold); }
+.form-status { font-size: var(--text-sm); min-height: 1.4em; }
+</style>
+
+<script>
+  // Newsletter form
+  const nlForm = document.getElementById('newsletter-form') as HTMLFormElement;
+  const nlStatus = document.getElementById('nl-status') as HTMLElement;
+  nlForm?.addEventListener('submit', async e => {
+    e.preventDefault();
+    nlStatus.textContent = 'Subscribing…';
+    const data = new FormData(nlForm);
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: data.get('email') }),
+      });
+      nlStatus.textContent = res.ok ? '✓ You\'re subscribed! Thank you.' : 'Something went wrong. Please try again.';
+      if (res.ok) nlForm.reset();
+    } catch { nlStatus.textContent = 'Network error. Please try again.'; }
+  });
+
+  // Contact form
+  const cForm   = document.getElementById('contact-form')  as HTMLFormElement;
+  const cStatus = document.getElementById('contact-status') as HTMLElement;
+  cForm?.addEventListener('submit', async e => {
+    e.preventDefault();
+    if ((cForm.elements.namedItem('website') as HTMLInputElement).value) return; // honeypot
+    cStatus.textContent = 'Sending…';
+    const data = Object.fromEntries(new FormData(cForm));
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      cStatus.textContent = res.ok
+        ? '✓ Message sent! We\'ll be in touch soon.'
+        : 'Error sending message. Please call us instead.';
+      if (res.ok) cForm.reset();
+    } catch { cStatus.textContent = 'Network error. Please try again.'; }
+  });
+</script>

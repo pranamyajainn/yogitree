@@ -1,0 +1,21 @@
+{
+    "name": "@koko-maya/web",
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "astro dev",
+        "build": "astro build",
+        "preview": "astro preview",
+        "lint": "eslint src --ext .astro,.ts,.tsx"
+    },
+    "dependencies": {
+        "@astrojs/node": "^8.3.0",
+        "@astrojs/preact": "^3.4.0",
+        "@astrojs/sitemap": "^3.7.0",
+        "astro": "^4.11.0",
+        "preact": "^10.22.0"
+    },
+    "devDependencies": {
+        "typescript": "^5.5.0"
+    }
+}
