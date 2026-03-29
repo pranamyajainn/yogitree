@@ -9,6 +9,9 @@ import OffersSection from '../components/OffersSection.astro';
 import FacilitiesSection from '../components/FacilitiesSection.astro';
 import TestimonialsSection from '../components/TestimonialsSection.astro';
 import NewsletterAndContact from '../components/NewsletterAndContact.astro';
+import TrustStrip from '../components/TrustStrip.astro';
+import SignatureExperiences from '../components/SignatureExperiences.astro';
+import DirectBookingAssurance from '../components/DirectBookingAssurance.astro';
 
 const heroSlides = [
   { image: '/images/hero/hero-1.jpg', alt: 'Morjim beach sunrise from resort' },
@@ -21,7 +24,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Hotel",
   "name": "Yogi Tree Resort",
-  "url": "https://www.yourdomain.com/",
+  "url": "https://www.yogitree.co.in/",
   "description": "Steps from Morjim Beach, Yogi Tree Resort offers cosy rooms with balconies, sea-view open-air dining, a swimming pool, and thoughtful concierge services in North Goa.",
   "address": {
     "@type": "PostalAddress",
@@ -31,16 +34,16 @@ const jsonLd = {
     "postalCode": "403512",
     "addressCountry": "IN"
   },
-  "telephone": "+91-73-5315-0111",
-  "email": "hello@yourcustomdomain.com",
+  "telephone": "+91-7030901111",
+  "email": "contactus@yogitree.co.in",
   "geo": {
     "@type": "GeoCoordinates",
     "latitude": 15.623,
     "longitude": 73.745
   },
   "image": [
-    "https://www.yourdomain.com/images/hero/hero-1.jpg",
-    "https://www.yourdomain.com/images/rooms/deluxe-balcony.jpg"
+    "https://www.yogitree.co.in/images/banner1.webp",
+    "https://www.yogitree.co.in/images/homepageimg.jpg"
   ],
   "priceRange": "₹₹",
   "checkinTime": "14:00",
@@ -66,19 +69,25 @@ const jsonLd = {
   <!-- 2. Booking Bar -->
   <BookingBar />
 
-  <!-- 3. Rooms -->
+  <!-- 3. Trust Strip -->
+  <TrustStrip />
+
+  <!-- 4. Rooms -->
   <RoomsSection />
 
-  <!-- 4. Dining -->
+  <!-- 5. Dining -->
   <DiningSection />
 
-  <!-- 5. Offers -->
+  <!-- 6. Experiences -->
+  <SignatureExperiences />
+
+  <!-- 7. Offers -->
   <OffersSection />
 
-  <!-- 6. Facilities -->
+  <!-- 8. Facilities -->
   <FacilitiesSection />
 
-  <!-- 7. Concierge / Elevate section -->
+  <!-- 9. Concierge / Elevate section -->
   <section class="section section--sand concierge-section" id="concierge" aria-labelledby="concierge-title">
     <div class="container concierge-inner">
       <div class="concierge-content">
@@ -109,10 +118,13 @@ const jsonLd = {
     </div>
   </section>
 
-  <!-- 8. Testimonials -->
+  <!-- 10. Direct Booking Assurance -->
+  <DirectBookingAssurance />
+
+  <!-- 11. Testimonials -->
   <TestimonialsSection />
 
-  <!-- 9. Attractions + Newsletter + Contact -->
+  <!-- 12. Attractions + Newsletter + Contact -->
   <NewsletterAndContact />
 </BaseLayout>
 

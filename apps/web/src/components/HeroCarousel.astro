@@ -100,10 +100,10 @@ const { slides } = Astro.props;
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    to bottom,
-    hsl(222 14% 10% / 0.15) 0%,
-    hsl(222 14% 10% / 0.45) 60%,
-    hsl(222 14% 10% / 0.65) 100%
+    135deg,
+    hsl(222 14% 10% / 0.72) 0%,
+    hsl(222 14% 10% / 0.48) 45%,
+    hsl(222 14% 10% / 0.74) 100%
   );
 }
 
@@ -113,10 +113,12 @@ const { slides } = Astro.props;
   z-index: 2;
   color: var(--color-white);
   padding-top: var(--nav-height);
+  max-width: 740px;
 }
 .hero-eyebrow {
   color: hsl(0 0% 100% / 0.8);
   margin-bottom: var(--space-4);
+  text-shadow: 0 2px 12px hsl(0 0% 0% / 0.45);
 }
 .hero-title {
   font-family: var(--font-display);
@@ -133,6 +135,7 @@ const { slides } = Astro.props;
   line-height: var(--leading-loose);
   margin-bottom: var(--space-8);
   max-width: 50ch;
+  text-shadow: 0 2px 14px hsl(0 0% 0% / 0.5);
 }
 .hero-ctas {
   display: flex;

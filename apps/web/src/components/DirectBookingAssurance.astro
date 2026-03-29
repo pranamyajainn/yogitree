@@ -1,0 +1,86 @@
+---
+const assurances = [
+  { title: 'No Third-Party Confusion', text: 'Direct communication with the property team for every booking request.' },
+  { title: 'Priority Room Preferences', text: 'Preference handling for floor, view, and celebration setups where available.' },
+  { title: 'Faster Support', text: 'Call + WhatsApp assistance with quick escalation for check-in or transport changes.' },
+];
+---
+
+<section class="section assurance-section section--ocean" aria-labelledby="assurance-title">
+  <div class="container">
+    <header class="section-header" data-reveal>
+      <p class="eyebrow" style="color:hsl(0 0% 100% / 0.7)">Direct Booking Confidence</p>
+      <h2 class="section-title" id="assurance-title">Everything Needed to Say “Yes” in One View</h2>
+      <hr class="divider divider--center" />
+    </header>
+    <div class="assurance-grid">
+      {assurances.map((assurance, idx) => (
+        <article class="assurance-card" data-reveal style={`transition-delay:${90 * idx}ms`}>
+          <h3>{assurance.title}</h3>
+          <p>{assurance.text}</p>
+        </article>
+      ))}
+    </div>
+    <div class="assurance-cta" data-reveal>
+      <a href="/book/" class="btn btn--accent btn--lg">Lock Your Dates</a>
+      <a href="https://wa.me/917030901111" class="btn btn--outline-white btn--lg" target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<style>
+.assurance-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.assurance-section::before {
+  content: '';
+  position: absolute;
+  inset: -40% -10% auto auto;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, hsl(20 84% 60% / 0.35), transparent 62%);
+  pointer-events: none;
+}
+
+.assurance-grid {
+  margin-top: var(--space-10);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+.assurance-card {
+  background: hsl(0 0% 100% / 0.09);
+  border: 1px solid hsl(0 0% 100% / 0.18);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  backdrop-filter: blur(6px);
+}
+
+.assurance-card h3 {
+  color: var(--color-white);
+  font-size: var(--text-2xl);
+}
+
+.assurance-card p {
+  margin-top: var(--space-3);
+  color: hsl(0 0% 100% / 0.8);
+  line-height: var(--leading-loose);
+}
+
+.assurance-cta {
+  margin-top: var(--space-10);
+  display: flex;
+  justify-content: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+  .assurance-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
